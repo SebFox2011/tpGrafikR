@@ -10,9 +10,6 @@ export function LoginForm() {
         setError(null)
         setLoading(true)
         event.preventDefault()
-        console.log(event.target)
-        console.log(event.target[0].value)
-        console.log(event.target[1].value)
         const data = new FormData(event.target)
         const response = await fetch('http://localhost:3333/login',{
             method:'POST',
