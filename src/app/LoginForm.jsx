@@ -1,35 +1,32 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import apiFetch, { ApiErrors } from '../utils/api'
 
-export function LoginForm() {
+export function LoginForm({ onConnect }) {
 
     const [error, setError] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
-    const  handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         setError(null)
         setLoading(true)
         event.preventDefault()
-        console.log(event.target)
-        console.log(event.target[0].value)
-        console.log(event.target[1].value)
         const data = new FormData(event.target)
-        const response = await fetch('http://localhost:3333/login',{
-            method:'POST',
-            body:data,
-            credentials:'include',
-            headers:{
-                Accept: 'application/json'
+        try {
+            const user = await apiFetch('login', {
+                method: 'POST',
+                body: data
+            })
+            onConnect(user)
+        } catch (e) {
+            if (e instanceof ApiErrors) {
+                setError(e.errors[0].message)
             }
-        })
-        const responseData = await response.json()
-        if (response.ok) {
-
+            else {
+                console.log(e)
+            }
+            setLoading(false)
         }
-        else {
-            setError(responseData.errors[0].message)
-        }
-        setLoading(false)
     }
 
     return <form className='container mt-4' onSubmit={handleSubmit}>
@@ -37,11 +34,11 @@ export function LoginForm() {
         {error && <Alert>{error}</Alert>}
         <div className="group-form">
             <label htmlFor="username">Nom d'utilisateur</label>
-            <input name="email" type="text" id='username' className='form-control' required/>
+            <input name="email" type="text" id='username' className='form-control' required />
         </div>
         <div className="group-form">
             <label htmlFor="password">Mot de passe</label>
-            <input name="password" type="password" id='password' className='form-control' required/>
+            <input name="password" type="password" id='password' className='form-control' required />
         </div>
         <button disabled={isLoading} type='submit' className='btn btn-primary'>Se connecter</button>
     </form>
@@ -50,7 +47,7 @@ LoginForm.propTypes = {
     onConnect: PropTypes.func.isRequired
 }
 
-function Alert ({children}) {
+function Alert({ children }) {
 
     return <div className='alert alert-danger'>{children}</div>
 }
