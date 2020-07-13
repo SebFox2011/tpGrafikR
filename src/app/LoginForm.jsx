@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import apiFetch, { ApiErrors } from '../utils/api'
+import { apiFetch, ApiErrors } from '../utils/api'
 
 export function LoginForm({ onConnect }) {
 
@@ -13,7 +13,7 @@ export function LoginForm({ onConnect }) {
         event.preventDefault()
         const data = new FormData(event.target)
         try {
-            const user = await apiFetch('login', {
+            const user = await apiFetch('/login', {
                 method: 'POST',
                 body: data
             })

@@ -12,10 +12,10 @@ export class ApiErrors {
  * @param {sting} endpoint 
  * @param {object} options 
  */
-export default async function apiFetch (endpoint,options={}){
-    const response = await fetch('http://localhost:3333/' + endpoint, {
-        Credentials:'include',
-        Headers:{
+export async function apiFetch (endpoint,options= {}){
+    const response = await fetch('http://localhost:3333' + endpoint, {
+        credentials:'include',
+        headers:{
             Aceept:'application/json'
         },
         ...options

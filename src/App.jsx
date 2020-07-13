@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LoginForm } from './app/LoginForm';
-import apiFetch from './utils/api';
+import { apiFetch } from './utils/api';
+import { Site } from './app/site';
 
 export default function App() {
   const [user, setUser] = useState(null)
@@ -14,6 +15,6 @@ export default function App() {
   if (user === null) { return null }
   return (
 
-    user ? <div >Connecté</div> : <LoginForm onConnect={setUser} />
+    user ? <Site /> : <LoginForm onConnect={setUser} />
   )
 }
