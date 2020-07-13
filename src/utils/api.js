@@ -13,7 +13,7 @@ export class ApiErrors {
  * @param {object} options 
  */
 export default async function apiFetch (endpoint,options={}){
-    const response = await fetch('http://localhost:3333' + endpoint, {
+    const response = await fetch('http://localhost:3333/' + endpoint, {
         Credentials:'include',
         Headers:{
             Aceept:'application/json'
