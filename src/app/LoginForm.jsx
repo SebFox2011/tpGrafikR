@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { apiFetch, ApiErrors } from '../utils/api'
+import { Button } from '../ui/Button'
 
 export function LoginForm({ onConnect }) {
 
@@ -40,7 +41,7 @@ export function LoginForm({ onConnect }) {
             <label htmlFor="password">Mot de passe</label>
             <input name="password" type="password" id='password' className='form-control' required />
         </div>
-        <button disabled={isLoading} type='submit' className='btn btn-primary'>Se connecter</button>
+        <Button type='submit' loading={isLoading}>Se connecter</Button>
     </form>
 }
 LoginForm.propTypes = {

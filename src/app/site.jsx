@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Ingredients } from '../Ingredients/Ingredients'
+import { useIngredients } from '../hooks/ingredients'
 
 export function Site() {
 
     const [page, setPage] = useState('ingredients')
+    const {
+        ingredients,
+        fetchIngredients,
+        deleteIngredient
+    } = useIngredients()
     
     let content = null
     if (page === 'ingredients')
-        content = <Ingredients/>
+        content = <Ingredients ingredients={ingredients} onDelete={deleteIngredient}/>
 
+    useEffect(() => {
+        if (page === 'ingredients') {
+            fetchIngredients()
+        }
+    },[page])
     return <> 
         <NavBar currentPage={page} onClick={setPage}/>
         {content}
