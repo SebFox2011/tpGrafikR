@@ -31,7 +31,7 @@ function NavBar({ currentPage, onClick }) {
     const navClass = function (page) {
         let className = 'nav-item'
         if (page === currentPage) {
-            className = ' active'
+            className += ' active'
         }
         return className
     }
