@@ -24,13 +24,10 @@ export default function App() {
 
   }, [])
 
-
-  if (user === null) { return null }
   return (  
     <div>
       {data.body ? JSON.stringify(data.body.devices[0]._id) : null}
       {user ? <Site /> : <LoginForm onConnect={setUser} />}
     </div>
-    
   )
 }
